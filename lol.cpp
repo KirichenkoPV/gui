@@ -1,7 +1,7 @@
 #define GLAD_GL_IMPLEMENTATION
 #include "external/glfw/deps/glad/gl.h"
-// #include "implot.h"
-// #include "implot_internal.h"
+#include "implot.h"
+#include "implot_internal.h"
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 #include <imgui.h>
@@ -10,28 +10,28 @@
 #include <iostream>
 
 
-// void DrawVectorDiagram()
-// {
-//     float x_values1[] = {1.1, 2.2, 3.3, 4.4, 5.5};
-//     float y_values1[] ={1.1, 2.2, 3.3, 4.4, 5.5};
-//     int num_points1= 4;
-//     float x_values2[]= {-1.1, -2.2, -3.3, -4.4, -5.5};
-//     float y_values2[] = {-1.1, -2.2, -3.3, -4.4, -5.5};
-//     int num_points2= 4;
-//     // Начало окна рисования с помощью библиотеки implot
-//     ImPlot::BeginPlot("Vector Diagram", nullptr, nullptr, ImVec2(400, 400));
+void DrawVectorDiagram()
+{
+    float x_values1[] = {1.1, 2.2, 3.3, 4.4, 5.5};
+    float y_values1[] ={1.1, 2.2, 3.3, 4.4, 5.5};
+    int num_points1= 4;
+    float x_values2[]= {-1.1, -2.2, -3.3, -4.4, -5.5};
+    float y_values2[] = {-1.1, -2.2, -3.3, -4.4, -5.5};
+    int num_points2= 4;
+    // Начало окна рисования с помощью библиотеки implot
+    ImPlot::BeginPlot("Vector Diagram", nullptr, nullptr, ImVec2(400, 400));
 
-//     // Отрисовка первой линии
-//     ImPlot::PlotLine("Line 1", x_values1, y_values1, num_points1);
+    // Отрисовка первой линии
+    ImPlot::PlotLine("Line 1", x_values1, y_values1, num_points1);
 
-//     // Отрисовка второй линии
-//     ImPlot::PlotLine("Line 2", x_values2, y_values2, num_points2);
+    // Отрисовка второй линии
+    ImPlot::PlotLine("Line 2", x_values2, y_values2, num_points2);
 
-//     // Завершение окна рисования
-//     ImPlot::EndPlot();
-// }
+    // Завершение окна рисования
+    ImPlot::EndPlot();
+}
 
-void ShowCustomColumnsWindow(float data[8], ImVec2 windowSize, GLFWwindow* window) {
+void WindowBriefInformation(float data[8], ImVec2 windowSize, GLFWwindow* window) {
     ImGui::SetWindowSize(windowSize);
     ImGui::Begin("Protocol data", nullptr, ImGuiWindowFlags_MenuBar);
     ImGui::Text("Stream:");
@@ -46,45 +46,19 @@ void ShowCustomColumnsWindow(float data[8], ImVec2 windowSize, GLFWwindow* windo
     ImGui::Text("Ub= ");
     ImGui::Text("Uc= ");
     ImGui::Text("Un= ");
-    // if (ImPlot::BeginPlot("my chart")) {
-    //         // Создание данных для графика (здесь просто создаем несколько точек)
-    //         double x[] = {1.0, 2.0, 3.0, 4.0, 5.0};
-    //         double y[] = {1.0, 4.0, 9.0, 16.0, 25.0};
+    if (ImPlot::BeginPlot("my chart")) {
+            // Создание данных для графика (здесь просто создаем несколько точек)
+            double x[] = {1.0, 2.0, 3.0, 4.0, 5.0};
+            double y[] = {1.0, 4.0, 9.0, 16.0, 25.0};
 
-    //         // Отображение линейного графика
-    //         ImPlot::PlotLine("График", x, y, 5);
+            // Отображение линейного графика
+            ImPlot::PlotLine("График", x, y, 5);
 
-    //         // Завершение графика
-    //         ImPlot::EndPlot();
-    // }
-    //ImGui::Next
-    // ImGui::Columns(8, "MyColumns");
-
-    // ImGui::Text("Ia");
-    // ImGui::NextColumn();
-    // ImGui::Text("Ib");
-    // ImGui::NextColumn();
-    // ImGui::Text("Ic");
-    // ImGui::NextColumn();
-    // ImGui::Text("In");
-    // ImGui::NextColumn();
-    // ImGui::Text("Ua");
-    // ImGui::NextColumn();
-    // ImGui::Text("Ub");
-    // ImGui::NextColumn();
-    // ImGui::Text("Uc");
-    // ImGui::NextColumn();
-    // ImGui::Text("Un");
-    // ImGui::NextColumn();
-
-    // Внесите вещественные данные из массива
-    // for (int i = 0; i < 9; i++) {
-    //     ImGui::Text(("##Data" + std::to_string(i)).c_str(), &data[i]);
-    //     ImGui::NextColumn();
-    // }
-
-    // ImGui::Columns(1);
-
+            // Завершение графика
+            ImPlot::EndPlot();
+    }
+    ImGui::Next;
+    
     ImGui::End();
 }
 
@@ -110,7 +84,7 @@ int main(int, char**) {
 
     //Инициализация ImGui и Implot
     ImGui::CreateContext();
-    // ImPlot::CreateContext();
+    ImPlot::CreateContext();
     //Инициализация ImGui для работы с библиотекой GLFW и OpenGL
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     //Инициализация ImGui для работы с OpenGL версии 3.3
@@ -130,7 +104,7 @@ int main(int, char**) {
         //Задаёт размер окна 
         ImVec2 customWindowSize(200, 200);
         // Вызывает функцию со столбцами
-        ShowCustomColumnsWindow(data, customWindowSize, window);
+        WindowBriefInformation(data, customWindowSize, window);
         //DrawVectorDiagram();
 
         //Завершает отрисовку интерфейса и выводит на экран результат
@@ -147,7 +121,7 @@ int main(int, char**) {
         glfwSwapBuffers(window);
     }
     //Освобождает все выделенные ресурсы, связанные с GLFW и завершает работу этой библиотеки 
-    // ImPlot::DestroyContext();
+    ImPlot::DestroyContext();
     glfwTerminate();
     
     return 0;
