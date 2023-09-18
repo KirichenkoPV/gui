@@ -57,7 +57,6 @@ void WindowBriefInformation(float data[8], ImVec2 windowSize, GLFWwindow* window
             // Завершение графика
             ImPlot::EndPlot();
     }
-    ImGui::Next;
     
     ImGui::End();
 }
