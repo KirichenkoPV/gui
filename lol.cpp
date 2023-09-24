@@ -1,4 +1,6 @@
 #define GLAD_GL_IMPLEMENTATION
+#define _USE_MATH_DEFINES
+#include <math.h>
 #include "external/glfw/deps/glad/gl.h"
 #include "implot.h"
 #include "implot_internal.h"
@@ -10,54 +12,111 @@
 #include <iostream>
 
 
-void DrawVectorDiagram()
-{
-    float x_values1[] = {1.1, 2.2, 3.3, 4.4, 5.5};
-    float y_values1[] ={1.1, 2.2, 3.3, 4.4, 5.5};
-    int num_points1= 4;
-    float x_values2[]= {-1.1, -2.2, -3.3, -4.4, -5.5};
-    float y_values2[] = {-1.1, -2.2, -3.3, -4.4, -5.5};
-    int num_points2= 4;
-    // Начало окна рисования с помощью библиотеки implot
-    ImPlot::BeginPlot("Vector Diagram", nullptr, nullptr, ImVec2(400, 400));
+void DrawVectorDiagram(){
+    if (ImPlot::BeginPlot("Graph Ia, Ib, Ic, In", ImVec2(1300,200))) {
+        int n = 100; // количество точек на графике
+        float* xs = new float[n];
+        float* ys = new float[n];
+        float step = 2 * M_PI/ n;
+        for (int i = 0; i < n; i++) {
+            xs[i] = i * step;
+            ys[i] = std::sin(xs[i]);
+        }
+        ImPlot::PlotLine("sin(x)", xs, ys, n);
 
-    // Отрисовка первой линии
-    ImPlot::PlotLine("Line 1", x_values1, y_values1, num_points1);
+        delete[] xs;
+        delete[] ys;
+    }
+    ImPlot::EndPlot();
+    if (ImPlot::BeginPlot("Graph Ua, Ub, Uc, Un", ImVec2(1300,200))) {
+        int n = 100; // количество точек на графике
+        float* xs = new float[n];
+        float* ys = new float[n];
+        float step = 2 * M_PI/ n;
+        for (int i = 0; i < n; i++) {
+            xs[i] = i * step;
+            ys[i] = std::sin(xs[i]);
+        }
+        ImPlot::PlotLine("sin(x)", xs, ys, n);
 
-    // Отрисовка второй линии
-    ImPlot::PlotLine("Line 2", x_values2, y_values2, num_points2);
+        delete[] xs;
+        delete[] ys;
+    }
+    ImPlot::EndPlot();
+    if (ImPlot::BeginPlot("Graph valid values Ua, Ub, Uc, Un", ImVec2(1300,200))) {
+        int n = 100; // количество точек на графике
+        float* xs = new float[n];
+        float* ys = new float[n];
+        float step = 2 * M_PI/ n;
+        for (int i = 0; i < n; i++) {
+            xs[i] = i * step;
+            ys[i] = std::sin(xs[i]);
+        }
+        ImPlot::PlotLine("sin(x)", xs, ys, n);
 
-    // Завершение окна рисования
+        delete[] xs;
+        delete[] ys;
+    }
     ImPlot::EndPlot();
 }
 
-void WindowBriefInformation(float data[8], ImVec2 windowSize, GLFWwindow* window) {
-    ImGui::SetWindowSize(windowSize);
+void WindowBriefInformation(ImVec2 customWindowSize, GLFWwindow* window) {
+    const char* PackageName = "C++";
+    const char* Stream = "Potok";
+    const char* MACdst = "01:0c:cd:01:00:10";
+    const char* MACsrc = "00:50:c2:4f:94:3b";
+    const char* svID = "0000MU0001";
+    const char* Skippackets = "tut chto-to napisano";    
+    ImGui::SetWindowSize(customWindowSize);
     ImGui::Begin("Protocol data", nullptr, ImGuiWindowFlags_MenuBar);
-    ImGui::Text("Stream:");
-    ImGui::Text("MAC dst:");
-    ImGui::Text("MAC src:");
-    ImGui::Text("svID:");
-    ImGui::Text("Ia= ");
-    ImGui::Text("Ib= ");
-    ImGui::Text("Ic= ");
-    ImGui::Text("In= ");
-    ImGui::Text("Ua= ");
-    ImGui::Text("Ub= ");
-    ImGui::Text("Uc= ");
-    ImGui::Text("Un= ");
-    if (ImPlot::BeginPlot("my chart")) {
-            // Создание данных для графика (здесь просто создаем несколько точек)
-            double x[] = {1.0, 2.0, 3.0, 4.0, 5.0};
-            double y[] = {1.0, 4.0, 9.0, 16.0, 25.0};
-
-            // Отображение линейного графика
-            ImPlot::PlotLine("График", x, y, 5);
-
-            // Завершение графика
-            ImPlot::EndPlot();
-    }
+    ImGui::Text("Package Name: %s;  Stream: %s;  MAC dst: %s;  MAC src: %s;  svID: %s;  Number of packets to skip: %s;", PackageName, Stream, MACdst, MACsrc, svID, Skippackets );
     
+    if (ImPlot::BeginPlot("Graph Ia, Ib, Ic, In", ImVec2(1300,200))) {
+        int n = 100; // количество точек на графике
+        float* xs = new float[n];
+        float* ys = new float[n];
+        float step = 2 * M_PI/ n;
+        for (int i = 0; i < n; i++) {
+            xs[i] = i * step;
+            ys[i] = std::sin(xs[i]);
+        }
+        ImPlot::PlotLine("sin(x)", xs, ys, n);
+
+        delete[] xs;
+        delete[] ys;
+    }
+    ImPlot::EndPlot();
+    if (ImPlot::BeginPlot("Graph Ua, Ub, Uc, Un", ImVec2(1300,200))) {
+        int n = 100; // количество точек на графике
+        float* xs = new float[n];
+        float* ys = new float[n];
+        float step = 2 * M_PI/ n;
+        for (int i = 0; i < n; i++) {
+            xs[i] = i * step;
+            ys[i] = std::sin(xs[i]);
+        }
+        ImPlot::PlotLine("sin(x)", xs, ys, n);
+
+        delete[] xs;
+        delete[] ys;
+    }
+    ImPlot::EndPlot();
+    if (ImPlot::BeginPlot("Graph valid values Ua, Ub, Uc, Un", ImVec2(1300,200))) {
+        int n = 100; // количество точек на графике
+        float* xs = new float[n];
+        float* ys = new float[n];
+        float step = 2 * M_PI/ n;
+        for (int i = 0; i < n; i++) {
+            xs[i] = i * step;
+            ys[i] = std::sin(xs[i]);
+        }
+        ImPlot::PlotLine("sin(x)", xs, ys, n);
+
+        delete[] xs;
+        delete[] ys;
+    }
+    ImPlot::EndPlot(); 
+
     ImGui::End();
 }
 
@@ -68,7 +127,7 @@ int main(int, char**) {
         return EXIT_FAILURE;
     }
     //Создаю окно 
-    GLFWwindow* window = glfwCreateWindow(640, 480, "My window", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(1900, 1000, "My window", NULL, NULL);
     if (!window) {
         glfwTerminate();
         return -1;
@@ -89,9 +148,6 @@ int main(int, char**) {
     //Инициализация ImGui для работы с OpenGL версии 3.3
     ImGui_ImplOpenGL3_Init("#version 130");
 
-    float data[8] = {0.0f}; // Инициализация массива данными по умолчанию
-
-
     while (!glfwWindowShouldClose(window)) { //Цикл будет выполняться пока окно не закроется
         glfwPollEvents();//Обрабатывает все события, которые происходят в окне и позволяет реагировать на них
 
@@ -101,10 +157,11 @@ int main(int, char**) {
         ImGui::NewFrame();
 
         //Задаёт размер окна 
-        ImVec2 customWindowSize(200, 200);
-        // Вызывает функцию со столбцами
-        WindowBriefInformation(data, customWindowSize, window);
-        //DrawVectorDiagram();
+        
+        ImVec2 customWindowSize(1920, 1080);
+        // Вызывает функцию
+        WindowBriefInformation(customWindowSize,window);
+        // DrawVectorDiagram();
 
         //Завершает отрисовку интерфейса и выводит на экран результат
         ImGui::Render();
@@ -122,6 +179,6 @@ int main(int, char**) {
     //Освобождает все выделенные ресурсы, связанные с GLFW и завершает работу этой библиотеки 
     ImPlot::DestroyContext();
     glfwTerminate();
-    
+
     return 0;
 }
