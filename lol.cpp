@@ -68,7 +68,7 @@ void WindowBriefInformation(ImVec2 customWindowSize, GLFWwindow* window) {
     const char* svID = "0000MU0001";
     const char* Skippackets = "tut chto-to napisano";    
     ImGui::SetWindowSize(customWindowSize);
-    ImGui::Begin("Protocol data", nullptr, ImGuiWindowFlags_MenuBar);
+    ImGui::Begin("Protocol data");
     ImGui::Text("Package Name: %s;  Stream: %s;  MAC dst: %s;  MAC src: %s;  svID: %s;  Number of packets to skip: %s;", PackageName, Stream, MACdst, MACsrc, svID, Skippackets );
     
     if (ImPlot::BeginPlot("Graph Ia, Ib, Ic, In", ImVec2(1300,200))) {
@@ -127,7 +127,7 @@ int main(int, char**) {
         return EXIT_FAILURE;
     }
     //Создаю окно 
-    GLFWwindow* window = glfwCreateWindow(1900, 1000, "My window", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(1920, 1080, "My window", NULL, NULL);
     if (!window) {
         glfwTerminate();
         return -1;
