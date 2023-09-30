@@ -41,10 +41,10 @@ void WindowBriefInformation(ImVec2 customWindowSize, GLFWwindow* window) {
     const char* svID = "0000MU0001";
     const char* Skippackets = "tut chto-to napisano";    
     ImGui::SetWindowSize(customWindowSize);
-    ImGui::Begin("Protocol data",  nullptr, ImGuiWindowFlags_NoCollapse);
+    ImGui::Begin("Protocol data",  nullptr, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove);
     ImGui::Text("Package Name: %s;  Stream: %s;  MAC dst: %s;  MAC src: %s;  svID: %s;  Number of packets to skip: %s;", PackageName, Stream, MACdst, MACsrc, svID, Skippackets );
     
-    if (ImPlot::BeginPlot("Graph Ia, Ib, Ic, In", ImVec2(1300,200))) {
+    if (ImPlot::BeginPlot("Graph Ia, Ib, Ic, In", ImVec2(1300,200), ImPlotFlags_NoInputs)) {
         int n = 100; // количество точек на графике
         float* xs = new float[n];
         float* ys = new float[n];
@@ -59,7 +59,7 @@ void WindowBriefInformation(ImVec2 customWindowSize, GLFWwindow* window) {
         delete[] ys;
     }
     ImPlot::EndPlot();
-    if (ImPlot::BeginPlot("Graph Ua, Ub, Uc, Un", ImVec2(1300,200))) {
+    if (ImPlot::BeginPlot("Graph Ua, Ub, Uc, Un", ImVec2(1300,200),  ImPlotFlags_NoInputs)) {
         int n = 100; // количество точек на графике
         float* xs = new float[n];
         float* ys = new float[n];
@@ -74,7 +74,7 @@ void WindowBriefInformation(ImVec2 customWindowSize, GLFWwindow* window) {
         delete[] ys;
     }
     ImPlot::EndPlot();
-    if (ImPlot::BeginPlot("Graph valid values Ua, Ub, Uc, Un", ImVec2(1300,200))) {
+    if (ImPlot::BeginPlot("Graph valid values Ua, Ub, Uc, Un", ImVec2(1300,200),  ImPlotFlags_NoInputs)) {
         int n = 100; // количество точек на графике
         float* xs = new float[n];
         float* ys = new float[n];
@@ -89,7 +89,7 @@ void WindowBriefInformation(ImVec2 customWindowSize, GLFWwindow* window) {
         delete[] ys;
     }
     ImPlot::EndPlot(); 
-    if (ImPlot::BeginPlot("Graph valid values Ia, Ib, Ic, In", ImVec2(1300,200))) {
+    if (ImPlot::BeginPlot("Graph valid values Ia, Ib, Ic, In", ImVec2(1300,200),  ImPlotFlags_NoInputs)) {
         int n = 100; // количество точек на графике
         float* xs = new float[n];
         float* ys = new float[n];
@@ -147,7 +147,6 @@ int main(int, char**) {
         ImVec2 customWindowSize(1920, 1080);
         // Вызывает функцию
         WindowBriefInformation(customWindowSize,window);
-        // DrawVectorDiagram();
 
         //Завершает отрисовку интерфейса и выводит на экран результат
         ImGui::Render();
