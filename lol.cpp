@@ -13,52 +13,25 @@
 
 
 void DrawVectorDiagram(){
-    if (ImPlot::BeginPlot("Graph Ia, Ib, Ic, In", ImVec2(1300,200))) {
-        int n = 100; // количество точек на графике
-        float* xs = new float[n];
-        float* ys = new float[n];
-        float step = 2 * M_PI/ n;
-        for (int i = 0; i < n; i++) {
-            xs[i] = i * step;
-            ys[i] = std::sin(xs[i]);
-        }
-        ImPlot::PlotLine("sin(x)", xs, ys, n);
 
-        delete[] xs;
-        delete[] ys;
-    }
-    ImPlot::EndPlot();
-    if (ImPlot::BeginPlot("Graph Ua, Ub, Uc, Un", ImVec2(1300,200))) {
-        int n = 100; // количество точек на графике
-        float* xs = new float[n];
-        float* ys = new float[n];
-        float step = 2 * M_PI/ n;
-        for (int i = 0; i < n; i++) {
-            xs[i] = i * step;
-            ys[i] = std::sin(xs[i]);
-        }
-        ImPlot::PlotLine("sin(x)", xs, ys, n);
+    ImGui::Begin("Protocol data");
+        if (ImPlot::BeginPlot("Graph Ia, Ib, Ic, In", ImVec2(1300,200))) {
+            int n = 100; // количество точек на графике
+            float* xs = new float[n];
+            float* ys = new float[n];
+            float step = 2 * M_PI/ n;
+            for (int i = 0; i < n; i++) {
+                xs[i] = i * step;
+                ys[i] = std::sin(xs[i]);
+            }
+            ImPlot::PlotLine("sin(x)", xs, ys, n);
 
-        delete[] xs;
-        delete[] ys;
-    }
-    ImPlot::EndPlot();
-    if (ImPlot::BeginPlot("Graph valid values Ua, Ub, Uc, Un", ImVec2(1300,200))) {
-        int n = 100; // количество точек на графике
-        float* xs = new float[n];
-        float* ys = new float[n];
-        float step = 2 * M_PI/ n;
-        for (int i = 0; i < n; i++) {
-            xs[i] = i * step;
-            ys[i] = std::sin(xs[i]);
+            delete[] xs;
+            delete[] ys;
         }
-        ImPlot::PlotLine("sin(x)", xs, ys, n);
-
-        delete[] xs;
-        delete[] ys;
-    }
-    ImPlot::EndPlot();
-}
+        ImPlot::EndPlot();
+    ImGui::End();
+} 
 
 void WindowBriefInformation(ImVec2 customWindowSize, GLFWwindow* window) {
     const char* PackageName = "C++";
@@ -68,7 +41,7 @@ void WindowBriefInformation(ImVec2 customWindowSize, GLFWwindow* window) {
     const char* svID = "0000MU0001";
     const char* Skippackets = "tut chto-to napisano";    
     ImGui::SetWindowSize(customWindowSize);
-    ImGui::Begin("Protocol data");
+    ImGui::Begin("Protocol data",  nullptr, ImGuiWindowFlags_NoCollapse);
     ImGui::Text("Package Name: %s;  Stream: %s;  MAC dst: %s;  MAC src: %s;  svID: %s;  Number of packets to skip: %s;", PackageName, Stream, MACdst, MACsrc, svID, Skippackets );
     
     if (ImPlot::BeginPlot("Graph Ia, Ib, Ic, In", ImVec2(1300,200))) {
@@ -102,6 +75,21 @@ void WindowBriefInformation(ImVec2 customWindowSize, GLFWwindow* window) {
     }
     ImPlot::EndPlot();
     if (ImPlot::BeginPlot("Graph valid values Ua, Ub, Uc, Un", ImVec2(1300,200))) {
+        int n = 100; // количество точек на графике
+        float* xs = new float[n];
+        float* ys = new float[n];
+        float step = 2 * M_PI/ n;
+        for (int i = 0; i < n; i++) {
+            xs[i] = i * step;
+            ys[i] = std::sin(xs[i]);
+        }
+        ImPlot::PlotLine("sin(x)", xs, ys, n);
+
+        delete[] xs;
+        delete[] ys;
+    }
+    ImPlot::EndPlot(); 
+    if (ImPlot::BeginPlot("Graph valid values Ia, Ib, Ic, In", ImVec2(1300,200))) {
         int n = 100; // количество точек на графике
         float* xs = new float[n];
         float* ys = new float[n];
@@ -155,8 +143,6 @@ int main(int, char**) {
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
-
-        //Задаёт размер окна 
         
         ImVec2 customWindowSize(1920, 1080);
         // Вызывает функцию
@@ -179,6 +165,7 @@ int main(int, char**) {
     //Освобождает все выделенные ресурсы, связанные с GLFW и завершает работу этой библиотеки 
     ImPlot::DestroyContext();
     glfwTerminate();
+    
 
     return 0;
 }
